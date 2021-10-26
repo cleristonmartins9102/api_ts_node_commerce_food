@@ -19,4 +19,16 @@ describe('Basket Repository', () => {
     sut.add(productModel)
     expect(addToDataBaseSpy).toBeCalledWith(productModel)
   })
+
+  test('Ensure BasketRepository returns error if AddToDataBase throws', async () => {
+    const productModel: AddProductToBasketModel = {
+      idProduct: 1
+    }
+    const addToDataBase = new AddDbAdapter()
+    const sut = new BasketRepository(addToDataBase)
+    jest.spyOn(addToDataBase, 'add').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    await expect(sut.add(productModel)).rejects.toThrow()
+  })
 })
