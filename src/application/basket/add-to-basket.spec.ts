@@ -33,16 +33,15 @@ describe('Add To Basket', () => {
     expect(basketRepoSpy).toBeCalledWith(productModel)
   })
 
-  test('Ensure AddToBasket return error if BasketMysqlRepository throws', () => {
+  test('Ensure AddToBasket return error if BasketMysqlRepository throws', async () => {
     const productModel: AddProductToBasketModel = {
       idProduct: 1
     }
     const addToBasketRepo = makeBasketMysqlRepositoryStub()
-    const basketRepoSpy = jest.spyOn(addToBasketRepo, 'add').mockImplementationOnce(() => {
+    jest.spyOn(addToBasketRepo, 'add').mockImplementationOnce(() => {
       throw new Error()
     })
     const sut = new AddToBasket(addToBasketRepo)
-    const resp = sut.add(productModel)
-    expect(resp).toThrow()
+    await expect(sut.add(productModel)).rejects.toThrow()
   })
 })
