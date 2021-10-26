@@ -2,30 +2,43 @@ import { AddProductToBasketModel } from '@/application/basket/protocols/add-prod
 import { AddToDataBase } from '../protocols/add-to-database'
 import { BasketRepository } from './basket-repositoy'
 
-class AddDbAdapterStub implements AddToDataBase<AddProductToBasketModel> {
-  async add (data: AddProductToBasketModel): Promise<void> {
-    return Promise.resolve()
+type SutTypes = {
+  sut: BasketRepository
+  addToDataBase: AddToDataBase<AddProductToBasketModel>
+}
+
+const makeAddDbAdapterStub = (): AddToDataBase<AddProductToBasketModel> => {
+  class AddDbAdapterStub implements AddToDataBase<AddProductToBasketModel> {
+    async add(data: AddProductToBasketModel): Promise<void> {
+      return Promise.resolve()
+    }
   }
+  return new AddDbAdapterStub()
+}
+
+const makeSut = (): SutTypes => {
+  const addToDataBase = makeAddDbAdapterStub()
+  const sut = new BasketRepository(addToDataBase)
+  return {
+    sut,
+    addToDataBase
+  }
+}
+
+const productModel: AddProductToBasketModel = {
+  idProduct: 1
 }
 
 describe('Basket Repository', () => {
   test('Ensure BasketRepository calls AddToDataBase with correct value', () => {
-    const productModel: AddProductToBasketModel = {
-      idProduct: 1
-    }
-    const addToDataBase = new AddDbAdapterStub()
-    const sut = new BasketRepository(addToDataBase)
+    const { sut, addToDataBase } = makeSut()
     const addToDataBaseSpy = jest.spyOn(addToDataBase, 'add')
     sut.add(productModel)
     expect(addToDataBaseSpy).toBeCalledWith(productModel)
   })
 
   test('Ensure BasketRepository returns error if AddToDataBase throws', async () => {
-    const productModel: AddProductToBasketModel = {
-      idProduct: 1
-    }
-    const addToDataBase = new AddDbAdapterStub()
-    const sut = new BasketRepository(addToDataBase)
+    const { sut, addToDataBase } = makeSut()
     jest.spyOn(addToDataBase, 'add').mockImplementationOnce(() => {
       throw new Error()
     })
