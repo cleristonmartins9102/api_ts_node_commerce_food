@@ -6,13 +6,15 @@
         "esModuleInterop": true,
         "strictNullChecks": true,
         "sourceMap": true,
-        "rootDir": "src"
+        "rootDir": "src",
+        "paths": {
+            "@/*": ["./src/*"]
+          },
     },
     "include": [
-        "src"
+        "src",
     ],
     "exclude": [
-        "**/*.spec.ts",
         "**/*.test.ts"
     ]
 }
