@@ -1,0 +1,2 @@
+[![Build Status](https://app.travis-ci.com/cleristonmartins9102/api_ts_node_commerce_food.svg?branch=master)](https://app.travis-ci.com/cleristonmartins9102/api_ts_node_commerce_food)
+[![Coverage Status](https://coveralls.io/repos/github/cleristonmartins9102/api_ts_node_commerce_food/badge.svg?branch=master)](https://coveralls.io/github/cleristonmartins9102/api_ts_node_commerce_food?branch=master)
