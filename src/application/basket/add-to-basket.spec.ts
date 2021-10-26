@@ -12,6 +12,11 @@ const makeProductModel: ProductModel = {
   }
 }
 
+type SutTypes = {
+  sut: AddToBasket
+  addToBasketRepo: DbAddToBasket
+}
+
 const makeBasketMysqlRepositoryStub = (): any => {
   class BasketMysqlRepository implements DbAddToBasket {
     async add (product: ProductModel): Promise<ProductModel> {
@@ -21,22 +26,28 @@ const makeBasketMysqlRepositoryStub = (): any => {
   return new BasketMysqlRepository()
 }
 
+const makeSut = (): SutTypes => {
+  const addToBasketRepo = makeBasketMysqlRepositoryStub()
+  const sut = new AddToBasket(addToBasketRepo)
+  return {
+    sut,
+    addToBasketRepo
+  }
+}
+
+const productModel: AddProductToBasketModel = {
+  idProduct: 1
+}
+
 describe('Add To Basket', () => {
-  test('Ensure call BasketMysqlRepository with correct value', () => {
-    const productModel: AddProductToBasketModel = {
-      idProduct: 1
-    }
-    const addToBasketRepo = makeBasketMysqlRepositoryStub()
+  test('Ensure AddToBasket call BasketMysqlRepository with correct value', () => {
+    const { sut, addToBasketRepo } = makeSut()
     const basketRepoSpy = jest.spyOn(addToBasketRepo, 'add')
-    const sut = new AddToBasket(addToBasketRepo)
     sut.add(productModel)
     expect(basketRepoSpy).toBeCalledWith(productModel)
   })
 
-  test('Ensure AddToBasket return error if BasketMysqlRepository throws', async () => {
-    const productModel: AddProductToBasketModel = {
-      idProduct: 1
-    }
+  test('Ensure AddToBasket returns error if BasketMysqlRepository throws', async () => {
     const addToBasketRepo = makeBasketMysqlRepositoryStub()
     jest.spyOn(addToBasketRepo, 'add').mockImplementationOnce(() => {
       throw new Error()
