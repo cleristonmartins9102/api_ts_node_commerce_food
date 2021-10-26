@@ -2,7 +2,7 @@ import { AddProductToBasketModel } from '@/application/basket/protocols/add-prod
 import { AddToDataBase } from '../protocols/add-to-database'
 import { BasketRepository } from './basket-repositoy'
 
-class AddDbAdapter implements AddToDataBase<AddProductToBasketModel> {
+class AddDbAdapterStub implements AddToDataBase<AddProductToBasketModel> {
   async add (data: AddProductToBasketModel): Promise<void> {
     return Promise.resolve()
   }
@@ -13,7 +13,7 @@ describe('Basket Repository', () => {
     const productModel: AddProductToBasketModel = {
       idProduct: 1
     }
-    const addToDataBase = new AddDbAdapter()
+    const addToDataBase = new AddDbAdapterStub()
     const sut = new BasketRepository(addToDataBase)
     const addToDataBaseSpy = jest.spyOn(addToDataBase, 'add')
     sut.add(productModel)
@@ -24,7 +24,7 @@ describe('Basket Repository', () => {
     const productModel: AddProductToBasketModel = {
       idProduct: 1
     }
-    const addToDataBase = new AddDbAdapter()
+    const addToDataBase = new AddDbAdapterStub()
     const sut = new BasketRepository(addToDataBase)
     jest.spyOn(addToDataBase, 'add').mockImplementationOnce(() => {
       throw new Error()
