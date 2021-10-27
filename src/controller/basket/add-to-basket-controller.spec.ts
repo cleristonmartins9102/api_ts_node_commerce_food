@@ -41,4 +41,12 @@ describe('AddToBasket Controller', () => {
     sut.handle(httpRequest)
     expect(addToBasketSpy).toBeCalledWith(httpRequest.body)
   })
+
+  test('Ensure AddToBasketController returns error if AddToBasket throws', async () => {
+    const { sut, addToBasket } = makeSut()
+    jest.spyOn(addToBasket, 'add').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    await expect(sut.handle(httpRequest)).rejects.toThrow()
+  })
 })
