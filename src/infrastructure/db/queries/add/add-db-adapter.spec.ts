@@ -6,7 +6,7 @@ import mysql from 'mysql'
 const mockQuery = jest.fn()
 jest.mock('mysql', () => ({
   createConnection: (): any => ({
-    query: mockQuery.mockImplementationOnce((sql, data, callback) => {
+    query: mockQuery.mockImplementation((sql, data, callback) => {
       callback(null, ['success'])
     })
   })
@@ -23,12 +23,18 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('Add Db Adapter', () =>
+describe('Add Db Adapter', () => {
   test('Ensure AddDbAdapter returns error if Mysql throws', async () => {
     const { sut } = makeSut()
-    mockQuery.mockImplementationOnce(() => {
-      throw new Error()
+    mockQuery.mockImplementationOnce((sql, data, callback) => {
+      callback(new Error())
     })
     await expect(sut.add({ idProduct: 2 }, 'Basket')).rejects.toThrow()
   })
+
+  test('Ensure AddDbAdapter returns sucess when mysql success', async () => {
+    const { sut } = makeSut()
+    await expect(sut.add({ idProduct: 2 }, 'Basket')).resolves
+  })
+}
 )

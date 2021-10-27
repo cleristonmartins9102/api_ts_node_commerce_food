@@ -3,13 +3,8 @@ import { AddToBasket } from './add-to-basket'
 import { AddProductToBasketModel } from './protocols/add-product-model'
 import { DbAddToBasket } from './protocols/db-add-to-basket'
 
-const makeProductModel: ProductModel = {
-  idProduct: 1,
-  name: 'Bicmac',
-  category: {
-    idCategory: 1,
-    name: 'Lanche'
-  }
+const makeProductModel: AddProductToBasketModel = {
+  idProduct: 1
 }
 
 type SutTypes = {
@@ -19,8 +14,8 @@ type SutTypes = {
 
 const makeBasketMysqlRepositoryStub = (): any => {
   class BasketMysqlRepository implements DbAddToBasket {
-    async add (product: ProductModel): Promise<ProductModel> {
-      return Promise.resolve(makeProductModel)
+    async add (product: AddProductToBasketModel): Promise<null> {
+      return Promise.resolve(null)
     }
   }
   return new BasketMysqlRepository()
