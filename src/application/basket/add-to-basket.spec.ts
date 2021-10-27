@@ -35,7 +35,7 @@ const productModel: AddProductToBasketModel = {
 }
 
 describe('Add To Basket', () => {
-  test('Ensure AddToBasket call BasketMysqlRepository with correct value', () => {
+  test('Ensure AddToBasket calls BasketMysqlRepository with correct value', () => {
     const { sut, addToBasketRepo } = makeSut()
     const basketRepoSpy = jest.spyOn(addToBasketRepo, 'add')
     sut.add(productModel)

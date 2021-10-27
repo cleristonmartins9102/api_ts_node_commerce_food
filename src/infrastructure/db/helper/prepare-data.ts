@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-export const prepare = <T=Object>(data: {}): any => {
+export const prepare = (data: {}): any => {
   let sql: {} = {}
   for (const [key, value] of Object.entries(data)) {
     const valuePrepared = prepData(value)

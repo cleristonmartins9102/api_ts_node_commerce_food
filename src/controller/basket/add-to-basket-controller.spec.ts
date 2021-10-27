@@ -58,4 +58,10 @@ describe('AddToBasket Controller', () => {
     const response = await sut.handle(httpRequest)
     expect(response).toEqual(ok())
   })
+
+  test('Ensure data is writed on DB', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(httpRequest)
+    expect(response).toEqual(ok())
+  })
 })
