@@ -1,4 +1,5 @@
 import { DbAddToBasket } from '@/application/basket/protocols/db-add-to-basket'
+import { ok, serverError } from '../helper/http'
 import { Controller } from '../protocols/controllet'
 import { HttpRequest, HttpResponse } from '../protocols/http'
 
@@ -10,8 +11,12 @@ export class AddToBasketController implements Controller {
   }
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-    const { body } = httpRequest
-    this.addToBasket.add(body)
-    return Promise.resolve({ statusCode: 1, body: 22 })
+    try {
+      const { body } = httpRequest
+      this.addToBasket.add(body)
+      return ok()
+    } catch (error) {
+      return serverError(error)
+    }
   }
 }

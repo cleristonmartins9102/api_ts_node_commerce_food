@@ -3,6 +3,8 @@ import { AddToBasketController } from './add-to-basket-controller'
 import { DbAddToBasket } from '@/application/basket/protocols/db-add-to-basket'
 import { HttpRequest } from '../protocols/http'
 import { Controller } from '../protocols/controllet'
+import { ok, serverError } from '../helper/http'
+import { ServerError } from '../erros/server-error'
 
 type SutTypes = {
   sut: Controller
@@ -42,11 +44,18 @@ describe('AddToBasket Controller', () => {
     expect(addToBasketSpy).toBeCalledWith(httpRequest.body)
   })
 
-  test('Ensure AddToBasketController returns error if AddToBasket throws', async () => {
+  test('Ensure returns 500 if AddToBasket throws', async () => {
     const { sut, addToBasket } = makeSut()
     jest.spyOn(addToBasket, 'add').mockImplementationOnce(() => {
-      throw new Error()
+      throw new Error('any_error')
     })
-    await expect(sut.handle(httpRequest)).rejects.toThrow()
+    const response = await sut.handle(httpRequest)
+    expect(response).toEqual(serverError('any_error'))
+  })
+
+  test('Ensure returns 200 on success', async () => {
+    const { sut } = makeSut()
+    const response = await sut.handle(httpRequest)
+    expect(response).toEqual(ok())
   })
 })
