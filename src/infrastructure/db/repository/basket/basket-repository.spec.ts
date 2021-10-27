@@ -1,5 +1,5 @@
 import { AddProductToBasketModel } from '@/application/basket/protocols/add-product-model'
-import { AddToDataBase } from '../protocols/add-to-database'
+import { AddToDataBase } from '../../protocols/add-to-database'
 import { BasketRepository } from './basket-repositoy'
 
 type SutTypes = {

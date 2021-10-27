@@ -10,7 +10,8 @@ export class AddToBasket implements AddProductToBasket {
   }
 
   async add (product: AddProductToBasketModel): Promise<null> {
-    this.dbRepository.add(product)
-    return Promise.resolve(null)
+    throw new Error()
+    // this.dbRepository.add(product)
+    // return Promise.resolve(null)
   }
 }

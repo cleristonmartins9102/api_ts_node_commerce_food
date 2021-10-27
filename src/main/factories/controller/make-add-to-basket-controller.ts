@@ -1,6 +1,6 @@
 import { AddToBasketController } from '../../../controller/basket/add-to-basket-controller'
 import { Controller } from '../../../controller/protocols/controller'
-import { BasketRepository } from '../../../infrastructure/db/basket/basket-repositoy'
+import { BasketRepository } from '../../../infrastructure/db/repository/basket/basket-repositoy'
 import { AddDbAdapter } from '../../../infrastructure/adapter/db/queries/add/add-db-adapter'
 
 export const makeAddToBasketController = (): Controller => {

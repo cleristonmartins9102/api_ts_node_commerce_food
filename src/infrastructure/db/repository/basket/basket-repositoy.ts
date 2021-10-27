@@ -1,6 +1,6 @@
 import { AddProductToBasketModel } from '@/application/basket/protocols/add-product-model'
 import { DbAddToBasket } from '@/application/basket/protocols/db-add-to-basket'
-import { AddToDataBase } from '../protocols/add-to-database'
+import { AddToDataBase } from '../../protocols/add-to-database'
 
 export class BasketRepository implements DbAddToBasket {
   private readonly tableName: string = 'Basket'
