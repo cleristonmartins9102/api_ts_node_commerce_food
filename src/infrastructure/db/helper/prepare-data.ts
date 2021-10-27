@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export const prepare = <T=Object>(data: {}): any => {
   let sql: {} = {}
   for (const [key, value] of Object.entries(data)) {

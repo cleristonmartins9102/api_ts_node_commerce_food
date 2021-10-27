@@ -32,7 +32,7 @@ describe('Add Db Adapter', () => {
     await expect(sut.add({ idProduct: 2 }, 'Basket')).rejects.toThrow()
   })
 
-  test('Ensure AddDbAdapter returns sucess when mysql success', async () => {
+  test('Ensure AddDbAdapter returns success when mysql success', async () => {
     const { sut } = makeSut()
     await expect(sut.add({ idProduct: 2 }, 'Basket')).resolves
   })
