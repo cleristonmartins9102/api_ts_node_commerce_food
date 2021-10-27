@@ -1,3 +1,3 @@
 export interface AddToDataBase<T> {
-  add (data: T): Promise<void>
+  add (data: T, tableName: string): Promise<void>
 }

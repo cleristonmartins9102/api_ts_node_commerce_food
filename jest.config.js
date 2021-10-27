@@ -10,6 +10,7 @@ module.exports = {
   transform: {
     '.+\\.ts$': 'ts-jest'
   },
+  // preset: "jest-mysql",
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1'
   }

@@ -9,7 +9,7 @@ type SutTypes = {
 
 const makeAddDbAdapterStub = (): AddToDataBase<AddProductToBasketModel> => {
   class AddDbAdapterStub implements AddToDataBase<AddProductToBasketModel> {
-    async add(data: AddProductToBasketModel): Promise<void> {
+    async add (data: AddProductToBasketModel, tableName: string): Promise<void> {
       return Promise.resolve()
     }
   }
@@ -30,11 +30,11 @@ const productModel: AddProductToBasketModel = {
 }
 
 describe('Basket Repository', () => {
-  test('Ensure BasketRepository calls AddToDataBase with correct value', () => {
+  test('Ensure BasketRepository calls AddDbAdapter with correct value', () => {
     const { sut, addToDataBase } = makeSut()
     const addToDataBaseSpy = jest.spyOn(addToDataBase, 'add')
     sut.add(productModel)
-    expect(addToDataBaseSpy).toBeCalledWith(productModel)
+    expect(addToDataBaseSpy).toBeCalledWith(productModel, 'Basket')
   })
 
   test('Ensure BasketRepository returns error if AddToDataBase throws', async () => {
