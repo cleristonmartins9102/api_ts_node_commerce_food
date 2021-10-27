@@ -1,11 +1,11 @@
-import { DbAddToBasket } from '@/application/basket/protocols/db-add-to-basket'
+import { AddProductToBasket } from '@/domain/basket'
 import { ok, serverError } from '../helper/http'
 import { Controller } from '../protocols/controller'
 import { HttpRequest, HttpResponse } from '../protocols/http'
 
 export class AddToBasketController implements Controller {
   constructor (
-    private readonly addToBasket: DbAddToBasket
+    private readonly addToBasket: AddProductToBasket
   ) {
     this.addToBasket = addToBasket
   }
@@ -13,10 +13,10 @@ export class AddToBasketController implements Controller {
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const { body } = httpRequest
-      this.addToBasket.add(body)
-      return ok()
+      await this.addToBasket.add(body)
+      return ok('success')
     } catch (error) {
-      return serverError(error)
+      return serverError(error.message)
     }
   }
 }

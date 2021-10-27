@@ -10,10 +10,11 @@ export class AddDbAdapter implements AddToDataBase<AddProductToBasketModel> {
     const dataPepared: string = prepare(data)
     const sql = `INSERT INTO ${tableName} SET ?`
     return new Promise((resolve, reject) => {
-      connection.query(sql, dataPepared, (err, result) => {
+      const query = connection.query(sql, dataPepared, (err, result) => {
         if (err) reject(err)
         resolve(result)
       })
+      console.log('SQL Query:', query.sql)
     })
   }
 }

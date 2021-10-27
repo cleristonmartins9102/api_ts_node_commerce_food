@@ -4,7 +4,7 @@ import { DbAddToBasket } from '@/application/basket/protocols/db-add-to-basket'
 import { HttpRequest } from '../protocols/http'
 import { Controller } from '../protocols/controller'
 import { ok, serverError } from '../helper/http'
-import { ServerError } from '../erros/server-error'
+import { ServerError } from '../config/erros/server-error'
 
 type SutTypes = {
   sut: Controller
@@ -56,12 +56,6 @@ describe('AddToBasket Controller', () => {
   test('Ensure returns 200 on success', async () => {
     const { sut } = makeSut()
     const response = await sut.handle(httpRequest)
-    expect(response).toEqual(ok())
-  })
-
-  test('Ensure data is writed on DB', async () => {
-    const { sut } = makeSut()
-    const response = await sut.handle(httpRequest)
-    expect(response).toEqual(ok())
+    expect(response).toEqual(ok('success'))
   })
 })

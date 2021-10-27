@@ -11,7 +11,7 @@ export class BasketRepository implements DbAddToBasket {
   }
 
   async add (product: AddProductToBasketModel): Promise<null> {
-    this.addToDataBase.add(product, this.tableName)
+    await this.addToDataBase.add(product, this.tableName)
     return Promise.resolve(null)
   }
 }

@@ -12,7 +12,7 @@ export default (controler: Controller): any => {
       res.status(response.statusCode).json(response.body)
     } else {
       res.status(response.statusCode).json({
-        errod: response.body
+        error: response.body
       })
     }
   }

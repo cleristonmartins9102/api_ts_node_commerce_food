@@ -1,4 +1,4 @@
-import { ServerError } from '../erros/server-error'
+import { ServerError } from '../config/erros/server-error'
 import { HttpResponse } from '../protocols/http'
 
 export const serverError = (error: string): HttpResponse => ({ statusCode: 500, body: new ServerError(error) })
