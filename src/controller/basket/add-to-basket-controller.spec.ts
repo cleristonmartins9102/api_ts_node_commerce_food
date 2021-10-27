@@ -2,7 +2,7 @@ import { AddProductToBasketModel } from '@/application/basket/protocols/add-prod
 import { AddToBasketController } from './add-to-basket-controller'
 import { DbAddToBasket } from '@/application/basket/protocols/db-add-to-basket'
 import { HttpRequest } from '../protocols/http'
-import { Controller } from '../protocols/controllet'
+import { Controller } from '../protocols/controller'
 import { ok, serverError } from '../helper/http'
 import { ServerError } from '../erros/server-error'
 

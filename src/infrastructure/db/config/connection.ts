@@ -1,5 +1,5 @@
 import mysql from 'mysql'
-import dev from '@/main/config/dev'
+import dev from '../../../main/config/dev'
 
 const connections = {
   mysql: (database?: string): mysql.Connection => {

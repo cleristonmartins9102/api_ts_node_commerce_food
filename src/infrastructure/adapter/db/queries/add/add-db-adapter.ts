@@ -1,8 +1,8 @@
 
 import { AddProductToBasketModel } from '@/application/basket/protocols/add-product-model'
-import { AddToDataBase } from '../../protocols/add-to-database'
-import { connections } from '../../config/connection'
-import { prepare } from '../../helper/prepare-data'
+import { AddToDataBase } from '../../../../db/protocols/add-to-database'
+import { connections } from '../../../../db/config/connection'
+import { prepare } from '../../../../db/helper/prepare-data'
 
 export class AddDbAdapter implements AddToDataBase<AddProductToBasketModel> {
   async add (data: AddProductToBasketModel, tableName: string): Promise<void> {

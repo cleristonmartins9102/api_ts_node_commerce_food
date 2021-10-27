@@ -1,6 +1,6 @@
 import { DbAddToBasket } from '@/application/basket/protocols/db-add-to-basket'
 import { ok, serverError } from '../helper/http'
-import { Controller } from '../protocols/controllet'
+import { Controller } from '../protocols/controller'
 import { HttpRequest, HttpResponse } from '../protocols/http'
 
 export class AddToBasketController implements Controller {
