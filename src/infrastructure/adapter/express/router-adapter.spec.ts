@@ -14,10 +14,11 @@ const fakeExpressRequest = {
   }
 }
 
+const json = jest.fn()
 const fakeExpressResponse = {
   status: jest.fn((msg: string) => {
     return {
-      json: jest.fn()
+      json: json
     }
   }),
   send: (message: any): void => { }
@@ -53,7 +54,7 @@ describe('Router Adapter Express', () => {
     })
   })
 
-  test('Ensure Change Express Response status if controller returns 200', async () => {
+  test('Ensure Change Express Response status and json if controller returns 200', async () => {
     const { sut, controller } = makeSut()
     jest.spyOn(controller, 'handle').mockImplementation(async (httpRequest: HttpRequest): Promise<HttpResponse> => ({
       statusCode: 200,
@@ -62,9 +63,11 @@ describe('Router Adapter Express', () => {
     await sut(fakeExpressRequest, fakeExpressResponse)
     expect(fakeExpressResponse.status).toBeCalled()
     expect(fakeExpressResponse.status).toBeCalledWith(200)
+    expect(json).toBeCalled()
+    expect(json).toBeCalledWith('success')
   })
 
-  test('Ensure Change Express Response status if controller returns error', async () => {
+  test('Ensure Change Express Response status and json if controller returns error', async () => {
     const { sut, controller } = makeSut()
     jest.spyOn(controller, 'handle').mockImplementation(async (httpRequest: HttpRequest): Promise<HttpResponse> => ({
       statusCode: 500,
@@ -72,5 +75,9 @@ describe('Router Adapter Express', () => {
     }))
     await sut(fakeExpressRequest, fakeExpressResponse)
     expect(fakeExpressResponse.status).toBeCalledWith(500)
+    expect(json).toBeCalled()
+    expect(json).toBeCalledWith({
+      error: serverError('any_error')
+    })
   })
 })
