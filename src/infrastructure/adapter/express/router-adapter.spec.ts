@@ -1,4 +1,4 @@
-import { ok, serverError } from '@/controller/helper/http'
+import { ok, serverError } from '@/controller/config/helper/http'
 import { Controller } from '@/controller/protocols/controller'
 import { HttpRequest, HttpResponse } from '@/controller/protocols/http'
 import routerAdapterExpress from './router-adapter'
@@ -54,7 +54,7 @@ describe('Router Adapter Express', () => {
     })
   })
 
-  test('Ensure Change Express Response status and json if controller returns 200', async () => {
+  test('Ensure Route Adapter Express calls status and json if controller returns 200', async () => {
     const { sut, controller } = makeSut()
     jest.spyOn(controller, 'handle').mockImplementation(async (httpRequest: HttpRequest): Promise<HttpResponse> => ({
       statusCode: 200,
@@ -67,7 +67,7 @@ describe('Router Adapter Express', () => {
     expect(json).toBeCalledWith('success')
   })
 
-  test('Ensure Change Express Response status and json if controller returns error', async () => {
+  test('Ensure Route Adapter Express calls status and json if controller returns error', async () => {
     const { sut, controller } = makeSut()
     jest.spyOn(controller, 'handle').mockImplementation(async (httpRequest: HttpRequest): Promise<HttpResponse> => ({
       statusCode: 500,

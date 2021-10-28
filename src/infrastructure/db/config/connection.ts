@@ -8,6 +8,7 @@ const connections = {
       user: dev.mysql.user,
       password: dev.mysql.secret
     }
+    /* istanbul ignore next */
     return mysql.createConnection(database ? { ...config, database: database } : config)
   }
 }

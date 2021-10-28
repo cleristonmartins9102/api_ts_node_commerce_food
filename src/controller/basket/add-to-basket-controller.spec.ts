@@ -3,7 +3,7 @@ import { AddToBasketController } from './add-to-basket-controller'
 import { DbAddToBasket } from '@/application/basket/protocols/db-add-to-basket'
 import { HttpRequest } from '../protocols/http'
 import { Controller } from '../protocols/controller'
-import { ok, serverError } from '../helper/http'
+import { ok, serverError } from '../config/helper/http'
 import { ServerError } from '../config/erros/server-error'
 
 type SutTypes = {

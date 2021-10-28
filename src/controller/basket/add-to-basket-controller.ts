@@ -1,5 +1,5 @@
 import { AddProductToBasket } from '@/domain/basket'
-import { ok, serverError } from '../helper/http'
+import { ok, serverError } from '../config/helper/http'
 import { Controller } from '../protocols/controller'
 import { HttpRequest, HttpResponse } from '../protocols/http'
 
