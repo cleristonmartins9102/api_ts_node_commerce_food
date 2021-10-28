@@ -1,8 +1,8 @@
 import { AddProductToBasketModel } from '@/application/basket/protocols/add-product-model'
 import { AddToDataBase } from '../../../../db/protocols/add-to-database'
-import { AddDbAdapter } from './add-db-adapter'
 import mysql from 'mysql'
 import { prepare } from '../../../../db/helper/prepare-data'
+import { AddDbMysqlAdapter } from './add-db-mysql-adapter'
 
 const mockQuery = jest.fn()
 jest.mock('mysql', () => ({
@@ -20,7 +20,7 @@ type SutTypes = {
 }
 
 const makeSut = (): SutTypes => {
-  const sut = new AddDbAdapter()
+  const sut = new AddDbMysqlAdapter()
   return {
     sut
   }

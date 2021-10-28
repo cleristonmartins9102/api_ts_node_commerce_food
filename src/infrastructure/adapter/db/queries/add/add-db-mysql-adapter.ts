@@ -1,10 +1,9 @@
-
 import { AddProductToBasketModel } from '@/application/basket/protocols/add-product-model'
 import { AddToDataBase } from '../../../../db/protocols/add-to-database'
 import { connections } from '../../../../db/config/connection'
 import { prepare } from '../../../../db/helper/prepare-data'
 
-export class AddDbAdapter implements AddToDataBase<AddProductToBasketModel> {
+export class AddDbMysqlAdapter implements AddToDataBase<AddProductToBasketModel> {
   async add (data: AddProductToBasketModel, tableName: string): Promise<void> {
     const connection = connections.mysql('frangolino')
     const dataPepared: string = prepare(data)
