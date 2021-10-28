@@ -1,6 +1,6 @@
 import { AddProductToBasket } from '@/domain/basket'
-import { AddProductToBasketModel } from './protocols/add-product-model'
-import { DbAddToBasket } from './protocols/db-add-to-basket'
+import { AddProductToBasketModel } from '../protocols/add-product-model'
+import { DbAddToBasket } from '../protocols/db-add-to-basket'
 
 export class AddToBasket implements AddProductToBasket {
   constructor (

@@ -1,7 +1,7 @@
 import { ProductModel } from '@/domain/model/product/product-model'
 import { AddToBasket } from './add-to-basket'
-import { AddProductToBasketModel } from './protocols/add-product-model'
-import { DbAddToBasket } from './protocols/db-add-to-basket'
+import { AddProductToBasketModel } from '../protocols/add-product-model'
+import { DbAddToBasket } from '../protocols/db-add-to-basket'
 
 const makeProductModel: AddProductToBasketModel = {
   idProduct: 1
