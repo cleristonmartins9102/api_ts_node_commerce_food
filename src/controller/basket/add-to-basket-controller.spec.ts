@@ -3,8 +3,9 @@ import { AddToBasketController } from './add-to-basket-controller'
 import { DbAddToBasket } from '@/application/basket/protocols/db-add-to-basket'
 import { HttpRequest } from '../protocols/http'
 import { Controller } from '../protocols/controller'
-import { ok, serverError } from '../config/helper/http'
+import { badRequest, ok, serverError } from '../config/helper/http'
 import { ServerError } from '../config/erros/server-error'
+import { MissingParamError } from '../config/erros/missing-param-error'
 
 type SutTypes = {
   sut: Controller
@@ -42,6 +43,13 @@ describe('AddToBasket Controller', () => {
     const addToBasketSpy = jest.spyOn(addToBasket, 'add')
     sut.handle(httpRequest)
     expect(addToBasketSpy).toBeCalledWith(httpRequest.body)
+  })
+
+  test('Ensure AddToBasketController returns error if validate field fails', async () => {
+    const { sut } = makeSut()
+    const { idProduct, ...httpReq } = httpRequest.body as any
+    const response = await sut.handle(httpReq)
+    expect(response).toEqual(badRequest(new MissingParamError('idProduct')))
   })
 
   test('Ensure returns 500 if AddToBasket throws', async () => {
