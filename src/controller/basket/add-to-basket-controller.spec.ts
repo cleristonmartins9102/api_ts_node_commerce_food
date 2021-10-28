@@ -6,6 +6,7 @@ import { Controller } from '../protocols/controller'
 import { badRequest, ok, serverError } from '../config/helper/http'
 import { ServerError } from '../config/erros/server-error'
 import { MissingParamError } from '../config/erros/missing-param-error'
+import { InvalidParamError } from '../config/erros/invalid-param-error'
 
 type SutTypes = {
   sut: Controller
@@ -50,6 +51,13 @@ describe('AddToBasket Controller', () => {
     const { idProduct, ...httpReq } = httpRequest.body as any
     const response = await sut.handle(httpReq)
     expect(response).toEqual(badRequest(new MissingParamError('idProduct')))
+  })
+
+  test('Ensure AddToBasketController returns error if body size is incompatible', async () => {
+    const { sut } = makeSut()
+    const httpReq = { body: { ...httpRequest.body, name: 'any_name' } }
+    const response = await sut.handle(httpReq)
+    expect(response).toEqual(badRequest(new InvalidParamError('Body size incompatible')))
   })
 
   test('Ensure returns 500 if AddToBasket throws', async () => {
